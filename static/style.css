@@ -13,12 +13,12 @@ body{
 }
 
 .loginbox{
-    width: 320px;
+    width: 520px;
     height: 420px;
     background: #000;
     color: #fff;
     top: 50%;
-    left: 50%;
+    left: 45%;
     position: absolute;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
@@ -52,13 +52,12 @@ h1{
     margin-bottom: 20px;
 }
 
-.loginbox input[type="text"], input[type="password"]
+.loginbox textarea
 {
     border: none;
     border-bottom: 1px solid #fff;
     background: transparent;
     outline: none;
-    height: 40px;
     color: #fff;
     font-size: 16px;
 }
@@ -90,3 +89,7 @@ h1{
     color: #ffc107;
 }
 
+.emoji
+{
+    display: flex;
+}

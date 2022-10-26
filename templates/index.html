@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Twitter Sentiment Analysis || Yogesh Nile</title>
+        <title>Sentiment Analysis</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -9,22 +9,35 @@
     </head>
     <body>
         <div class="loginbox">
-        <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" class="avatar"></a>
-            <h1>Sentiment Analysis</h1>
-            <form method="post" name="Userinput" id="Userinput" action="/sentiment">
-                <p>UserID</p>
-                <input type="text" name="userid" placeholder="Enter UserID without @">
-                <p>HashTag</p>
-                <input type="text" name="hashtag" placeholder="Enter HashTag with #">
-                <center><button type="submit" class="btn btn-light btn-outline-success" id="sendMessageButton">Get Analysis</button></center>
-                <br>
-                <center><a href="/"><h6 style="color: red" >{{ error }}</h6></a></center>
-                <a href="https://bit.ly/2Ky3ho6" class="fa fa-linkedin-square" style="font-size:36px" target="_black"></a>
-                <a href="https://bit.ly/2yoggit" class="fa fa-github" style="font-size:36px" target="_black"> </a>
-                <a href="https://bit.ly/3dbLJLC" class="fa fa-twitter-square" style="font-size:36px" target="_black"> </a>
-                <a href="https://bit.ly/32SXHV0" class="fa fa-instagram" style="font-size:36px" target="_black"></a>
+            <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" class="avatar"></a>
+                <h1>Sentiment Analysis</h1>
+                <form method="post" name="Userinput" id="Userinput" action="/predict">
+                    <textarea type="text" cols="55" name="comment" placeholder="Enter comment"></textarea>
+                    
+                    <center><button type="submit" class="btn btn-light btn-outline-success" id="sendMessageButton">Get Analysis</button></center>
+                    <br>
+                    <center><a href="/"><h6 style="color: red" >{{ error }}</h6></a></center>
+                    <a href="#" class="fa fa-linkedin-square" style="font-size:36px" target="_black"></a>
+                    <a href="#" class="fa fa-github" style="font-size:36px" target="_black"> </a>
+                    <a href="#" class="fa fa-twitter-square" style="font-size:36px" target="_black"> </a>
+                    <a href="#" class="fa fa-instagram" style="font-size:36px" target="_black"></a>
+    
+                </form>  
+                <div class="emoji">
 
-            </form>  
+                {% block content %}
+                {% if positive %}
+                <p style="color: #008000">Positive:- {{ positive }} %</p><center><p style="font-size: 35px">&#128578;</p></center>
+                {% elif negative %}
+                <p style="color: red">Negative:- {{ negative }} %</p><center><p style="font-size: 35px">&#128577;</p></center>
+                {% elif neutral %}
+                <p style="color: #FFFF00">Neutral:- {{ neutral }} %</p><center><p style="font-size: 35px">&#128580;</p></center>
+                
+                {% endif %}
+
+                {% endblock content  %}
+                </div>
         </div>
+    
     </body>
 </html>

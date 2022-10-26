@@ -5,8 +5,31 @@ import pandas as pd
 from textblob import TextBlob
 from wordcloud import WordCloud
 import re
-
+from transformers import pipeline
+sent_pipeline = pipeline("sentiment-analysis")
 app = Flask(__name__)
+
+@app.route('/predict',methods = ['GET','POST'])
+def predict():
+    comment=request.form.get('comment')
+    pos=0
+    neg=0
+    neut=0
+    if comment == "" :
+        error = "Please Enter value"
+        return render_template('index.html', error=error)
+    else:
+        res=sent_pipeline(comment)
+        if res[0]['label']== 'NEGATIVE':
+            neg=round(res[0]['score']*100,2)
+        if res[0]['label'] == 'POSITIVE':
+            pos=round(res[0]['score']*100,2)
+        else:
+            neut=round(res[0]['score']*100,2)
+        return render_template('index.html', positive=pos,negative=neg,neutral=neut)
+
+
+
 
 @app.route('/sentiment', methods = ['GET','POST'])
 def sentiment():
@@ -22,10 +45,10 @@ def sentiment():
         return render_template('index.html', error=error)
 
     #======================Insert Twitter API Here==========================
-    consumerKey = ""
-    consumerSecret = ""
-    accessToken = ""
-    accessTokenSecret = ""
+    consumerKey = "5OUPqyhAgkmp9vGJgQ6b7oSrZ"
+    consumerSecret = "SKWP5xnkyApqo7QieBuB7lkyBagyCAA377v5yzgxEbvL9amtQZ"
+    accessToken = "1584534286933590022-cmiaoGNBB5AhqvDdqwSpk6eQEJHhHF"
+    accessTokenSecret = "99aTIqhX11ZZ4YHTxUye6wkiJjRpfNwCdhQXzBdv4WqUZ"
     #======================Insert Twitter API End===========================
     
     authenticate = tweepy.OAuthHandler(consumerKey, consumerSecret)
